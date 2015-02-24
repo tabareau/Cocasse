@@ -1,2 +1,2 @@
 # Cocasse
-A library for Gradual Certification in Coq 
+A library for Gradual Certified Programming in Coq 
