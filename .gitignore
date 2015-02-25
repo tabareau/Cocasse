@@ -1,3 +1,17 @@
 *.vo
 *.glob
 *.v.d
+
+*.cmi
+
+*.aux
+
+*.cmx
+
+*.cmxs
+
+*.native
+
+*.o
+
+*.md#
