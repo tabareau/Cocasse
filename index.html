@@ -32,10 +32,7 @@
 
         <section id="main_content">
 
-	<h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<div class="paragraph"> </div>
+	<div class="paragraph"> </div>
 
 What exactly does it mean to  a value <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> of type <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> to a value of the rich type <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span>?
 There are two challenges to be addressed. First, because we are talking about  casts, it must be possible
@@ -44,7 +41,7 @@ Second, because it may be the case that <span class="inlinecode"><a class="idref
 
 <div class="paragraph"> </div>
 
-<a name="lab1"></a><h2 class="section">Decidable properties</h2>
+<a name="lab1"></a><h3 class="section">Decidable properties</h3>
 
 
 
@@ -56,23 +53,15 @@ characterize properties that are decidable. To establish that a
 property is decidable, one must provide an explicit proof that it 
 either holds or not: 
 
-<div class="paragraph"> </div>
+<div class="code">
 
 <span class="inlinecode"><span class="id" title="keyword">Class</span></span> <span class="inlinecode"><span class="id" title="class">Decidable</span></span> <span class="inlinecode">(<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="keyword">Prop</span>)</span> <span class="inlinecode">:=</span> <span class="inlinecode">{</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#dec"><span class="id" title="variable">dec</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode">+</span> <span class="inlinecode">¬</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode">}.</span>
 
-<div class="paragraph"> </div>
+</div>
 
  Note that the disjunction is encoded using a sum type (<span class="inlinecode">+</span>, which is in <span class="inlinecode"><span class="id" title="keyword">Type</span></span>) instead of a propositional disjunction (<span class="inlinecode">∨</span>, which is in <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>) in order to support extracting the underlying proof term and use it computationally as a decision procedure for the property.
 
-</div>
-<div class="code">
 
-<br/>
-
-<br/>
-</div>
-
-<div class="doc">
 The Coq type class system can automatically infer the decision procedure of a complex property, using type class resolution, when a cast is performed. For that, the appropriate generic decidability instances must be provided first, but those instances are implemented only once and are already part of the <span class="inlinecode"><span class="id" title="class">Decidable</span></span> library or can be added as needed.<span class="inlinecode"><span class="id" title="class">Decidable</span></span> 
 For example, the following instance definition (definition omitted) allows Coq to infer decidability---and build the associated decision procedure---for a conjunction of two decidable properties by evaluating the decision procedure for each property:
 </div>
