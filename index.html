@@ -56,20 +56,15 @@ either holds or not:
 <div class="paragraph"> </div>
 
 <span class="inlinecode"><span class="id" title="keyword">Class</span></span> <span class="inlinecode"><span class="id" title="class">Decidable</span></span> <span class="inlinecode">(<span class="id" title="variable">P</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="keyword">Prop</span>)</span> <span class="inlinecode">:=</span> <span class="inlinecode">{</span> <span class="inlinecode"><span class="id" title="variable">dec</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="variable">P</span></span> <span class="inlinecode">+</span> <span class="inlinecode">¬</span> <span class="inlinecode"><span class="id" title="variable">P</span></span> <span class="inlinecode">}.</span>
+<br/>
 
-<div class="paragraph"> </div>
 
  Note that the disjunction is encoded using a sum type (<span class="inlinecode">+</span>, which is in <span class="inlinecode"><span class="id" title="keyword">Type</span></span>) instead of a propositional disjunction (<span class="inlinecode">∨</span>, which is in <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>) in order to support extracting the underlying proof term and use it computationally as a decision procedure for the property.
 
 </div>
-<div class="code">
 
 <br/>
 
-<br/>
-</div>
-
-<div class="doc">
 The Coq type class system can automatically infer the decision procedure of a complex property, using type class resolution, when a cast is performed. For that, the appropriate generic decidability instances must be provided first, but those instances are implemented only once and are already part of the <span class="inlinecode"><span class="id" title="class">Decidable</span></span> library or can be added as needed.<span class="inlinecode"><span class="id" title="class">Decidable</span></span> 
 For example, the following instance definition (definition omitted) allows Coq to infer decidability---and build the associated decision procedure---for a conjunction of two decidable properties by evaluating the decision procedure for each property:
 </div>
