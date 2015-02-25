@@ -31,46 +31,1059 @@
         <hr>
 
         <section id="main_content">
-          <h3>
+
+	<h3>
 <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<div class="paragraph"> </div>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+What exactly does it mean to  a value <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> of type <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> to a value of the rich type <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span>?
+There are two challenges to be addressed. First, because we are talking about  casts, it must be possible
+to check, for a given <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span>, whether <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> holds. This means that <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> must be . 
+Second, because it may be the case that <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> does not hold, we must consider how to represent such a "cast error", considering that Coq does not have any built-in exception mechanism. For decidability, we exploit the type class mechanism of Coq. For failed casts, we exploit axioms.
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<div class="paragraph"> </div>
 
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="lab1"></a><h2 class="section">Decidable properties</h2>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
 
-<h3>
-<a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<div class="paragraph"> </div>
 
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+The <span class="inlinecode"><span class="id" title="class">Decidable</span></span> type class, which is used in the Coq/HoTT
+library, is a way to
+characterize properties that are decidable. To establish that a
+property is decidable, one must provide an explicit proof that it 
+either holds or not: 
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<div class="paragraph"> </div>
 
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<span class="inlinecode"><span class="id" title="keyword">Class</span></span> <span class="inlinecode"><span class="id" title="class">Decidable</span></span> <span class="inlinecode">(<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="keyword">Prop</span>)</span> <span class="inlinecode">:=</span> <span class="inlinecode">{</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#dec"><span class="id" title="variable">dec</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode">+</span> <span class="inlinecode">¬</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode">}.</span>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="https://help.github.com/pages">https://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </section>
+<div class="paragraph"> </div>
 
-        <footer>
-          Cocasse is maintained by <a href="https://github.com/tabareau">tabareau</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+ Note that the disjunction is encoded using a sum type (<span class="inlinecode">+</span>, which is in <span class="inlinecode"><span class="id" title="keyword">Type</span></span>) instead of a propositional disjunction (<span class="inlinecode">∨</span>, which is in <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>) in order to support extracting the underlying proof term and use it computationally as a decision procedure for the property.
 
-        
-      </div>
-    </div>
-  </body>
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The Coq type class system can automatically infer the decision procedure of a complex property, using type class resolution, when a cast is performed. For that, the appropriate generic decidability instances must be provided first, but those instances are implemented only once and are already part of the <span class="inlinecode"><span class="id" title="class">Decidable</span></span> library or can be added as needed.<span class="inlinecode"><span class="id" title="class">Decidable</span></span> 
+For example, the following instance definition (definition omitted) allows Coq to infer decidability---and build the associated decision procedure---for a conjunction of two decidable properties by evaluating the decision procedure for each property:
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="Decidable_and"><span class="id" title="instance">Decidable_and</span></a> (<span class="id" title="var">P</span> <span class="id" title="var">Q</span>: <span class="id" title="keyword">Prop</span>) (<span class="id" title="var">HP</span> : <span class="id" title="class">Decidable</span> <a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">HQ</span> : <span class="id" title="class">Decidable</span> <a class="idref" href="Casts.cast1.html#Q"><span class="id" title="variable">Q</span></a>) :  <span class="id" title="class">Decidable</span> (<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d82a7d96d3659d805ffe732283716822"><span class="id" title="notation">∧</span></a> <a class="idref" href="Casts.cast1.html#Q"><span class="id" title="variable">Q</span></a>).<br/>
+ 
+<br/>
+</div>
+
+<div class="doc">
+ Also, whenever a proposition has been proven, it is obviously decidable (<span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a></span> is the left injection on a sum type): 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="Decidable_proven"><span class="id" title="instance">Decidable_proven</span></a> (<span class="id" title="var">P</span> : <span class="id" title="keyword">Prop</span>) (<span class="id" title="var">ev</span> :  <a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a>):  <span class="id" title="class">Decidable</span> <a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> := <br/>
+&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <span class="id" title="var">ev</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ This instance allows programmers to mix proven and decidable properties, for instance by inferring that <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode">∧</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#Q"><span class="id" title="variable">Q</span></a></span> is decidable if <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> is decidable and <span class="inlinecode"><a class="idref" href="Casts.cast1.html#Q"><span class="id" title="variable">Q</span></a></span> is proven. 
+<div class="paragraph"> </div>
+
+ Another interesting instance to mention here is the one that allows the reflection of a boolean as a decidable <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>:
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="Decidable_bool"><span class="id" title="instance">Decidable_bool</span></a> (<span class="id" title="var">b</span> : <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a>) : <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="class">Decidable</span> (<span class="id" title="keyword">if</span> <a class="idref" href="Casts.cast1.html#b"><span class="id" title="variable">b</span></a> <span class="id" title="keyword">then</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#True"><span class="id" title="inductive">True</span></a> <span class="id" title="keyword">else</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#False"><span class="id" title="inductive">False</span></a>).<br/>
+ 
+<br/>
+</div>
+
+<div class="doc">
+We discuss other instances later in the article, as needed. Appendix includes several declarations and definitions. 
+
+<div class="paragraph"> </div>
+
+<a name="lab2"></a><h2 class="section">Casts</h2>
+
+
+<div class="paragraph"> </div>
+
+Intuitively, the basic <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span> operator is a function of type <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span> (assuming that <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> is decidable). To perform such a cast implies exploiting the decidability of <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span>: checking (and hence evaluating) whether <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> holds or not. If it holds true, the cast succeeds. The <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span> function can simply return the dependent pair with the value <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> and the proof. If <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> does not hold, the cast fails. How should such errors manifest? 
+
+<div class="paragraph"> </div>
+
+
+The traditional way to support errors in a purely functional setting is to adopt a monadic style. For instance, we could define <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span> to return <span class="inlinecode"><span class="id" title="var">option</span></span> <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>:<a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span> instead of just <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>:<a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span>. Then, a cast failure would simply manifest as <span class="inlinecode"><span class="id" title="var">None</span></span>. This is all well and understood, but has serious consequences from a software engineering point of view: it forces all code that (potentially) uses casts to also be written in monadic style. Because the philosophy of gradual typing entails that casts may be added (or removed) anywhere as the software evolves, it means that the entire development has to be defensively written in monadic style. While some programmers may be comfortable with this style of programming, it is certainly not the general practice and a lot of existing code (be it in Coq or Ocaml, for instance) is not written in that style. 
+Furthermore, thinking about program extraction, with the vision of bringing certified programming of selected components closer to mainstream programming practices, a non-monadic solution seems valuable, if not preferable, as it would support a smoother, non-obtrusive path to supporting rich specification.
+
+<div class="paragraph"> </div>
+
+After all, every practical functional programming language does some compromise with purity, supporting side effects like references and exceptions directly in the language, rather than through an explicit monadic encoding. The upside of sacrificing purity is that these side effecting operations can be used "transparently", without having to adopt a rigid discipline like monads, which---despite various improvements such as---is still not free from software engineering challenges. So, what does it mean to embed cast errors in such a transparent manner in Coq?
+
+<div class="paragraph"> </div>
+
+
+We introduce a novel use of axioms, not to represent what is assumed to be true, but to represent errors. This allows us to provide the <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span> operator as a function of type <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span>. 
+
+<div class="paragraph"> </div>
+
+Specifically, we introduce one axiom, <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a></span>, which states that for any indexed property on elements of type <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span>, we can build a value of type <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span>:
+<span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a></span><span class="inlinecode">{}</span><span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span><span class="inlinecode"><a class="idref" href="Casts.cast1.html#msg"><span class="id" title="variable">msg</span></a></span><span class="inlinecode"><a class="idref" href="Casts.cast1.html#msg"><span class="id" title="variable">msg</span></a></span><span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span><span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span><span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span>
+
+<div class="paragraph"> </div>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Axiom</span> <a name="failed_cast"><span class="id" title="axiom">failed_cast</span></a> : <br/>
+&nbsp;&nbsp;<span class="id" title="keyword">∀</span> {<span class="id" title="var">A</span>:<span class="id" title="keyword">Type</span>} {<span class="id" title="var">P</span> : <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span>} (<span class="id" title="var">a</span>:<a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>) (<span class="id" title="var">msg</span>: <span class="id" title="keyword">Prop</span>), <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">a</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a> <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<div class="paragraph"> </div>
+
+Obviously, <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a></span> is a lie. This lie is used in the definition of the <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span> operator, in  case the decision procedure indicates that the property does not hold:  
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="cast"><span class="id" title="definition">cast</span></a> (<span class="id" title="var">A</span>:<span class="id" title="keyword">Type</span>) (<span class="id" title="var">P</span> : <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span>) <br/>
+&nbsp;&nbsp;(<span class="id" title="var">dec</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">a</span>, <span class="id" title="class">Decidable</span> (<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>)) : <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">a</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a> <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <span class="id" title="var">a</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a> :=<br/>
+<span class="id" title="keyword">fun</span> <span class="id" title="var">a</span>: <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> ⇒ <br/>
+&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="Casts.cast1.html#dec"><span class="id" title="variable">dec</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#inl"><span class="id" title="constructor">inl</span></a> <span class="id" title="var">p</span> ⇒ <a class="idref" href="Casts.cast1.html#6135e546f0329dbebe21f0a32ce243ef"><span class="id" title="notation">(</span></a><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="Casts.cast1.html#6135e546f0329dbebe21f0a32ce243ef"><span class="id" title="notation">;</span></a> <span class="id" title="var">p</span><a class="idref" href="Casts.cast1.html#6135e546f0329dbebe21f0a32ce243ef"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#inr"><span class="id" title="constructor">inr</span></a> <span class="id" title="var">_</span> ⇒ <a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a> (<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>)<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span> operator applies the decision procedure to the given value and, depending on the outcome, returns either the dependent pair with the obtained proof, or a <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a></span>. Considering the definition of <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span>, we see that a cast fails if and only if the property <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> does not hold according to the decision procedure.
+
+<div class="paragraph"> </div>
+
+A subtlety in the definition of <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span> is that the casted value must not be exposed as a dependent pair if the decision procedure fails. An alternative definition could always return <span class="inlinecode">(<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">;</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#x"><span class="id" title="variable">x</span></a>)</span> where <span class="inlinecode"><a class="idref" href="Casts.cast1.html#x"><span class="id" title="variable">x</span></a></span> is some error axiom if the cast failed. Doing so, however, would ruin the interest of the gradual verification framework in the context of program extraction. Indeed, with extraction, all properties (in <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>) are erased; so a casted value would not be extracted to a value associated with a runtime check, but just to a plain, unchecked value. Even within Coq, our definition has the advantage of reporting a cast failure as soon as the casted value is used (even though the property attached to it is not).
+
+<div class="paragraph"> </div>
+
+
+<div class="paragraph"> </div>
+
+We introduce the <span class="inlinecode">?</span> notation for <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span>, asking Coq to infer the property and the evidence of its decidability from the context:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Notation</span> <a name="47cc2cb0ec051ed70c2d7add0d2d6769"><span class="id" title="notation">&quot;</span></a>?" := (<a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+  Using an axiom to represent failed casts is (slightly!) heretical from a theoretical viewpoint. As a matter of fact, one can use a cast to inhabit <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#False"><span class="id" title="inductive">False</span></a></span>, for instance by pretending that <span class="inlinecode">0</span> comes with a proof of <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#False"><span class="id" title="inductive">False</span></a></span> and then projecting the second component: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="unsound"><span class="id" title="definition">unsound</span></a> : <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#False"><span class="id" title="inductive">False</span></a> := <a class="idref" href="Casts.cast1.html#a69e212c296979580f068aaf7cc48a40"><span class="id" title="notation">(?</span></a> 0<a class="idref" href="Casts.cast1.html#a69e212c296979580f068aaf7cc48a40"><span class="id" title="notation">).2</span></a>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ In this sense, the monadic approach is preferrable, as it preserves consistency. However, the axiomatic approach is an interesting alternative to using plain axioms and admitted definitions in Coq---which are, after all, the only pragmatic solutions available to a Coq practitioner who does not want to wrestle with a given proof immediately. Axiomatic casts are superior in many ways: 
+<span class="inlinecode"><span class="id" title="var">admit</span></span>
+
+<div class="paragraph"> </div>
+
+All in all, both the monadic and axiomatic approaches to gradual verification are feasible, and are likely to please different crowds. In this paper we focus on the axiomatic approach, because of its disruptive potential and software engineering benefits. We believe this approach will be appealing to pragmatic practitioners that are willing to compromise consistency to some extent in order to enjoy a smooth gradual verification environment.
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab3"></a><h2 class="section">First examples</h2>
+
+
+<div class="paragraph"> </div>
+
+
+<div class="paragraph"> </div>
+
+  We can now show how casts behave with examples.
+First consider a simple definition that is rejected by Coq:
+
+<div class="paragraph"> </div>
+
+<span class="inlinecode"><span class="id" title="keyword">Definition</span></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#x_not_ok"><span class="id" title="definition">x_not_ok</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a>:<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a></span> <span class="inlinecode">&lt;</span> <span class="inlinecode">10}</span> <span class="inlinecode">:=</span> <span class="inlinecode">5.</span> 
+
+<div class="paragraph"> </div>
+
+ This definition is rejected, because the value should be a dependent pair, not just a natural number.  Using  we are left with the obligation to prove that <span class="inlinecode">5</span> <span class="inlinecode">&lt;</span> <span class="inlinecode">10</span>, which is arguably not too hard. 
+
+<div class="paragraph"> </div>
+
+We could instead use a cast to promote <span class="inlinecode">5</span> to a value of type <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a>:<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a></span> <span class="inlinecode">&lt;</span> <span class="inlinecode">10}</span>. The semantics is that if we need to evaluate <span class="inlinecode"><a class="idref" href="Casts.cast1.html#x_good"><span class="id" title="definition">x_good</span></a></span>, we will check whether 5 is less than 10:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="x_good"><span class="id" title="definition">x_good</span></a> : <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">n</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <span class="id" title="var">n</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Peano.html#989c98e7ddd65d5bf37c334ff2076de8"><span class="id" title="notation">&lt;</span></a> 10<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a> := ? 5.<br/>
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#x_good"><span class="id" title="definition">x_good</span></a>.<br/>
+</div>
+
+<div class="doc">
+<pre>
+= (5; Le.le_n_S 5 9 (...))
+: {n : nat | n &lt; 10}
+</pre>
+We indeed have a dependent pair, whose first component is the number 5 and second component is the proof that <span class="inlinecode">5</span> <span class="inlinecode">&lt;</span> <span class="inlinecode">10</span> (elided). We can naturally project the number out of the pair:
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#x_good"><span class="id" title="definition">x_good</span></a><a class="idref" href="Casts.cast1.html#9a4d58e74533193c909813f3be0a58f0"><span class="id" title="notation">.1</span></a>.<br/>
+</div>
+
+<div class="doc">
+<pre>
+= 5
+: nat
+</pre>
+
+<div class="paragraph"> </div>
+
+  Of course, we may be mistaken and believe that <span class="inlinecode">15</span> <span class="inlinecode">&lt;</span> <span class="inlinecode">10</span>: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="x_bad"><span class="id" title="definition">x_bad</span></a> : <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">n</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <span class="id" title="var">n</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Peano.html#989c98e7ddd65d5bf37c334ff2076de8"><span class="id" title="notation">&lt;</span></a> 10<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a> := ? 15.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+  The cast error now manifests whenever we evaluate <span class="inlinecode"><a class="idref" href="Casts.cast1.html#x_bad"><span class="id" title="definition">x_bad</span></a></span>:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#x_bad"><span class="id" title="definition">x_bad</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<pre>
+= failed_cast 15 (16 &lt;= 10)
+: {n : nat | n &lt; 10}
+</pre>
+
+<div class="paragraph"> </div>
+
+ Note how the output clearly indicates both the casted value and the violated property. This is the benefit of the peculiar argument declarations of <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a></span>: the two first (implicit) arguments are not shown, only the last two (explicit) arguments <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> and <span class="inlinecode"><a class="idref" href="Casts.cast1.html#msg"><span class="id" title="variable">msg</span></a></span> are displayed.
+
+<div class="paragraph"> </div>
+
+Because <span class="inlinecode"><a class="idref" href="Casts.cast1.html#x_bad"><span class="id" title="definition">x_bad</span></a></span> evaluates to a failed cast, we cannot project the natural number, since we do not even have a proper dependent pair: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#x_bad"><span class="id" title="definition">x_bad</span></a><a class="idref" href="Casts.cast1.html#9a4d58e74533193c909813f3be0a58f0"><span class="id" title="notation">.1</span></a>.<br/>
+</div>
+
+<div class="doc">
+<pre>
+= let (a, _) := failed_cast 15 (16 &lt;= 10) in a
+: nat
+</pre>
+
+<div class="paragraph"> </div>
+
+ At this point, it is worthwhile illustrating a major difference with the use of <span class="inlinecode"><span class="id" title="var">admit</span></span>, to which we alluded in the previous section. Consider that we use <span class="inlinecode"><span class="id" title="var">admit</span></span> to lie about 15: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Program Definition</span> <a name="x_real_bad"><span class="id" title="definition">x_real_bad</span></a> : <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">n</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <span class="id" title="var">n</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Peano.html#989c98e7ddd65d5bf37c334ff2076de8"><span class="id" title="notation">&lt;</span></a> 10<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a> := 15.<br/>
+<span class="id" title="keyword">Next</span> <span class="id" title="keyword">Obligation</span>. <span class="id" title="var">admit</span>. <span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ In this case, <span class="inlinecode"><a class="idref" href="Casts.cast1.html#x_real_bad"><span class="id" title="definition">x_real_bad</span></a></span> is an actual dependent pair, with the use of <span class="inlinecode"><span class="id" title="var">proof_admitted</span></span> (an inhabitant of <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#False"><span class="id" title="inductive">False</span></a></span>) in the second component: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#x_real_bad"><span class="id" title="definition">x_real_bad</span></a>.<br/>
+</div>
+
+<div class="doc">
+
+<div class="paragraph"> </div>
+
+<pre>
+= (15; match proof_admitted return (16 &lt;= 10) ...)
+: {n : nat | n &lt; 10}
+</pre>
+
+<div class="paragraph"> </div>
+
+ This means that we are able to project the number out of <span class="inlinecode"><a class="idref" href="Casts.cast1.html#x_real_bad"><span class="id" title="definition">x_real_bad</span></a></span> without revealing the lie: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#x_real_bad"><span class="id" title="definition">x_real_bad</span></a><a class="idref" href="Casts.cast1.html#9a4d58e74533193c909813f3be0a58f0"><span class="id" title="notation">.1</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<pre>
+= 15
+: nat
+</pre>
+ 
+<div class="paragraph"> </div>
+
+<a name="lab4"></a><h2 class="section">A note on evaluation regimes</h2>
+
+
+<div class="paragraph"> </div>
+
+Coq does not impose any fixed reduction strategy. Instead,  is parameterized by a reduction strategy, called a conversion tactic, such as <span class="inlinecode"><span class="id" title="tactic">cbv</span></span> (aka. <span class="inlinecode"><span class="id" title="tactic">compute</span></span>), <span class="inlinecode"><span class="id" title="tactic">lazy</span></span>, <span class="inlinecode"><span class="id" title="tactic">hnf</span></span>, <span class="inlinecode"><span class="id" title="tactic">simpl</span></span>, etc. 
+
+<div class="paragraph"> </div>
+
+In addition to understanding the impact of reduction strategies on the results of computations with casts, it is crucial to understand the impact of representing cast failures through an axiom. Consider a function <span class="inlinecode"><a class="idref" href="Casts.cast1.html#g"><span class="id" title="definition">g</span></a></span> that expects a <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a>:<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a></span> <span class="inlinecode">&gt;</span> <span class="inlinecode">0}</span>, but actually never uses its argument: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="g"><span class="id" title="definition">g</span></a> (<span class="id" title="var">x</span>: <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">n</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <span class="id" title="var">n</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Peano.html#19ab5cfd7e4f60fa14f22b576013bd96"><span class="id" title="notation">&gt;</span></a> 0<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a>) := 1.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Typically, one would expect that evaluating <span class="inlinecode"><a class="idref" href="Casts.cast1.html#g"><span class="id" title="definition">g</span></a></span> <span class="inlinecode">(?</span> <span class="inlinecode">0)</span> with a <span class="inlinecode"><span class="id" title="tactic">lazy</span></span> reduction would produce <span class="inlinecode">1</span>, while using an eager strategy like <span class="inlinecode"><span class="id" title="tactic">compute</span></span> would reveal the failed cast. However: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#g"><span class="id" title="definition">g</span></a> (? 0).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<div class="paragraph"> </div>
+
+<pre>
+= 1
+: nat </pre>
+
+<div class="paragraph"> </div>
+
+
+<div class="paragraph"> </div>
+
+ The reason is that a cast error in Coq is not an error per se (Coq has no such mechanism): it is just a non-canonical normal form. Therefore, even with an eager strategy, <span class="inlinecode"><a class="idref" href="Casts.cast1.html#g"><span class="id" title="definition">g</span></a></span> <span class="inlinecode">(?</span> <span class="inlinecode">0)</span> simply returns <span class="inlinecode">1</span>. The cast is eagerly evaluated, and fails; but this only means that <span class="inlinecode"><a class="idref" href="Casts.cast1.html#g"><span class="id" title="definition">g</span></a></span> is called with  as a fully-evaluated argument. Because <span class="inlinecode"><a class="idref" href="Casts.cast1.html#g"><span class="id" title="definition">g</span></a></span> does not touch its argument, the cast failure goes unnoticed.
+
+<div class="paragraph"> </div>
+
+On the contrary, if we extract the code to Ocaml, the cast violation is reported immediately as an exception:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="client"><span class="id" title="definition">client</span></a> (<span class="id" title="var">x</span>: <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>) := <a class="idref" href="Casts.cast1.html#g"><span class="id" title="definition">g</span></a> (? <a class="idref" href="Casts.cast1.html#x"><span class="id" title="variable">x</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">Extraction</span> <span class="id" title="var">Language</span> <span class="id" title="var">Ocaml</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Extraction</span> "test.ml" <span class="id" title="var">client</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<div class="paragraph"> </div>
+
+<pre>
+# client (S O);;
+- : nat = S O
+# client O;;
+Exception: Failure "Cast has failed".
+</pre>
+
+<div class="paragraph"> </div>
+
+While, as expected, the error goes unnoticed in Haskell, because of its lazy evaluation regime.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Extraction</span> <span class="id" title="var">Language</span> <span class="id" title="var">Haskell</span>.<br/>
+<span class="id" title="keyword">Extraction</span> "test.hs" <span class="id" title="var">client</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<pre>
+*Test&gt; client (S O)
+S O
+*Test&gt; client O
+S O
+</pre>
+
+<div class="paragraph"> </div>
+
+  There is one last detail to discuss when considering extraction to eager languages. As defined, <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a></span> and <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span> are extracted as follows in Ocaml: 
+<div class="paragraph"> </div>
+
+
+<div class="paragraph"> </div>
+
+<pre>
+let failed_cast = 
+  failwith "Cast has failed"
+
+let cast dec a =
+  match dec a with
+  | Inl _ -&gt; a
+  | Inr _ -&gt; failed_cast
+</pre>
+
+<div class="paragraph"> </div>
+
+While these definitions are perfectly fine for a lazy language like
+ Haskell, in an eager language like Ocaml or Scheme they imply that
+ loading the definition of  fails directly. The
+ solution is to enforce the inlining of <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a></span>: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Extraction</span> <span class="id" title="keyword">Inline</span> <span class="id" title="var">failed_cast</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As a result, <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a></span> is not extracted as a separate definition, and <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span> uses the Ocaml  function directly. 
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab5"></a><h2 class="section">A more involved example: casting lists</h2>
+
+<div class="paragraph"> </div>
+
+ Casting a list of elements of type <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> to a list of elements of type <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span> simply means mapping the <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span> operator over the list: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="cast_list"><span class="id" title="definition">cast_list</span></a> (<span class="id" title="var">A</span>: <span class="id" title="keyword">Type</span>) (<span class="id" title="var">P</span> : <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span>) <br/>
+&nbsp;&nbsp;(<span class="id" title="var">dec</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">a</span>, <span class="id" title="class">Decidable</span> (<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>)): <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">a</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a> <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <span class="id" title="var">a</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a> := <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Lists.List.html#map"><span class="id" title="definition">map</span></a> ?.<br/>
+
+<br/>
+<span class="id" title="keyword">Notation</span> <a name="0e6e057ce5644e8bdc96e46d7f89ccdb"><span class="id" title="notation">&quot;</span></a>?::" := (<a class="idref" href="Casts.cast1.html#cast_list"><span class="id" title="definition">cast_list</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+For instance, we can claim that the following list is a list of <span class="inlinecode">3</span>s: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="list_of_3"><span class="id" title="definition">list_of_3</span></a>: <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">n</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <span class="id" title="var">n</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> 3<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a> := ?:: (3 <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#0a8150c3c4df34d205c5ed9a427e2ed5"><span class="id" title="notation">::</span></a> 2 <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#0a8150c3c4df34d205c5ed9a427e2ed5"><span class="id" title="notation">::</span></a> 1 <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#0a8150c3c4df34d205c5ed9a427e2ed5"><span class="id" title="notation">::</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nil"><span class="id" title="constructor">nil</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If we force the evaluation of <span class="inlinecode"><a class="idref" href="Casts.cast1.html#list_of_3"><span class="id" title="definition">list_of_3</span></a></span>, we obtain a list of elements that are either <span class="inlinecode">3</span> with the proof that <span class="inlinecode">3</span> <span class="inlinecode">=</span> <span class="inlinecode">3</span>, or a <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a></span>: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#list_of_3"><span class="id" title="definition">list_of_3</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<div class="paragraph"> </div>
+
+<pre>
+= (3; eq_refl)
+    :: failed_cast 2 (2 = 3)
+       :: failed_cast 1 (1 = 3) :: nil
+: list {n : nat | n = 3}
+</pre>
+
+<div class="paragraph"> </div>
+
+ Because upon extraction, <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a></span> is an actual error, the building of the list may fail. This depends on the evaluation regime of the language. For instance, in Haskell, it is perfectly fine to define <span class="inlinecode"><a class="idref" href="Casts.cast1.html#list_of_3"><span class="id" title="definition">list_of_3</span></a></span> and take its head. An error is only reported if one accesses the second or third element of the list. Conversely, in Ocaml, the error is reported immediately at the definition of <span class="inlinecode"><a class="idref" href="Casts.cast1.html#list_of_3"><span class="id" title="definition">list_of_3</span></a></span>. 
+
+<div class="paragraph"> </div>
+
+ Finally, note the difference between a list of type <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#list"><span class="id" title="inductive">list</span></a></span> <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span> and a list of type <span class="inlinecode">{<span class="id" title="var">l</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#list"><span class="id" title="inductive">list</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><span class="id" title="var">l</span>}</span>. While the former expresses that each element <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> of the list satisfies <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span>, the latter expresses that the list <span class="inlinecode"><span class="id" title="var">l</span></span> as a whole satisfies <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><span class="id" title="var">l</span></span>. To cast to the former, one should use <span class="inlinecode">::?</span>, and use <span class="inlinecode">?</span> to cast to the latter.
+
+<div class="paragraph"> </div>
+
+ Casting works similarly for other inductively-defined structures. 
+<div class="paragraph"> </div>
+
+<a name="lab6"></a><h1 class="section">Higher-Order Casts, Simply</h1>
+
+
+<div class="paragraph"> </div>
+
+We now turn to the challenge of defining cast operators for functions. As expected, function casts are enforced lazily similarly to higher-order contracts.
+We first focus on non-dependent function types of the form <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>→<a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span>. One could want to either strengthen the range of the function, claiming that the return type is <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#b"><span class="id" title="variable">b</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#b"><span class="id" title="variable">b</span></a>}</span>, or vice-versa, to hide the fact that a function expects rich arguments of type <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span>. As we will see, the latter is particularly useful when using program extraction to compose certified components with non-certified ones.
+
+<div class="paragraph"> </div>
+
+<a name="lab7"></a><h2 class="section">Strengthening the range</h2>
+
+
+<div class="paragraph"> </div>
+
+The <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast_fun_range"><span class="id" title="definition">cast_fun_range</span></a></span> operator below takes a function of type <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>→<a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span> and returns a function of type <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#b"><span class="id" title="variable">b</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#b"><span class="id" title="variable">b</span></a>}</span>. It simply casts the return value to the expected subset type:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="cast_fun_range"><span class="id" title="definition">cast_fun_range</span></a> (<span class="id" title="var">A</span> <span class="id" title="var">B</span> : <span class="id" title="keyword">Type</span>) (<span class="id" title="var">P</span> : <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span>) <br/>
+&nbsp;&nbsp;(<span class="id" title="var">dec</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">b</span>, <span class="id" title="class">Decidable</span> (<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Casts.cast1.html#b"><span class="id" title="variable">b</span></a>)) :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">b</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a> <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <span class="id" title="var">b</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <span class="id" title="var">f</span> <span class="id" title="var">a</span> ⇒ ? (<a class="idref" href="Casts.cast1.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>).<br/>
+<span class="id" title="keyword">Notation</span> <a name="fb85f299f36fc19de6572069a924fc9c"><span class="id" title="notation">&quot;</span></a>?&gt;" := (<a class="idref" href="Casts.cast1.html#cast_fun_range"><span class="id" title="definition">cast_fun_range</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ We can cast a <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span> function such as <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#S"><span class="id" title="constructor">S</span></a></span> (successor) to a function type that ensures the returned value is less than <span class="inlinecode">10</span>: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="top_succ"><span class="id" title="definition">top_succ</span></a> : <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">n</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <span class="id" title="var">n</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Peano.html#989c98e7ddd65d5bf37c334ff2076de8"><span class="id" title="notation">&lt;</span></a> 10<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a> := ?&gt; <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#S"><span class="id" title="constructor">S</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Then, as expected: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#top_succ"><span class="id" title="definition">top_succ</span></a> 6.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<pre>
+= (7; Le.le_n_S 7 9 ...)
+: {n : nat | n &lt; 10}
+</pre>
+
+<div class="paragraph"> </div>
+
+  And: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#top_succ"><span class="id" title="definition">top_succ</span></a> 9.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<pre>
+= failed_cast 10 (11 &lt;= 10)
+: {n : nat | n &lt; 10}
+</pre>
+
+<div class="paragraph"> </div>
+
+<a name="lab8"></a><h2 class="section">Weakening the domain</h2>
+
+<div class="paragraph"> </div>
+
+ Similarly, <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast_fun_dom"><span class="id" title="definition">cast_fun_dom</span></a></span> turns a function of type <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span> <span class="inlinecode">→</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span>, which expects a value of a subset type, into a standard function of type <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>→<a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span>:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="cast_fun_dom"><span class="id" title="definition">cast_fun_dom</span></a> (<span class="id" title="var">A</span> <span class="id" title="var">B</span> : <span class="id" title="keyword">Type</span>) (<span class="id" title="var">P</span>: <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span>) <br/>
+&nbsp;&nbsp;(<span class="id" title="var">dec</span>: <span class="id" title="keyword">∀</span> <span class="id" title="var">a</span>, <span class="id" title="class">Decidable</span> (<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>)) :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">a</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a> <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <span class="id" title="var">a</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a>  <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <span class="id" title="var">f</span> <span class="id" title="var">a</span> ⇒ <a class="idref" href="Casts.cast1.html#f"><span class="id" title="variable">f</span></a> (? <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>).<br/>
+<span class="id" title="keyword">Notation</span> <a name="f91b740ea2ad5a23552703da10c022a5"><span class="id" title="notation">&quot;</span></a>&lt;?" := (<a class="idref" href="Casts.cast1.html#cast_fun_dom"><span class="id" title="definition">cast_fun_dom</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ An interesting use of <span class="inlinecode">&lt;?</span> is to protect extracted functions. For instance, consider the following definition: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="foo"><span class="id" title="definition">foo</span></a> (<span class="id" title="var">x</span>: <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">n</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <span class="id" title="var">n</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Peano.html#19ab5cfd7e4f60fa14f22b576013bd96"><span class="id" title="notation">&gt;</span></a> 0 <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a>) := <a class="idref" href="Casts.cast1.html#x"><span class="id" title="variable">x</span></a><a class="idref" href="Casts.cast1.html#9a4d58e74533193c909813f3be0a58f0"><span class="id" title="notation">.1</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ In Coq, we have the guarantee that <span class="inlinecode"><a class="idref" href="Casts.cast1.html#foo"><span class="id" title="definition">foo</span></a></span> can only be called with numbers that are strictly positive. If we extract <span class="inlinecode"><a class="idref" href="Casts.cast1.html#foo"><span class="id" title="definition">foo</span></a></span> to Ocaml we obtain the following definition:  
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Extraction</span> <a class="idref" href="Casts.cast1.html#foo"><span class="id" title="definition">foo</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<div class="paragraph"> </div>
+
+<pre>
+let foo n = n
+</pre>
+thereby losing the guarantee that the argument of <span class="inlinecode"><a class="idref" href="Casts.cast1.html#foo"><span class="id" title="definition">foo</span></a></span> must be positive. It is perfectly possible to call <span class="inlinecode"><a class="idref" href="Casts.cast1.html#foo"><span class="id" title="definition">foo</span></a></span> with <span class="inlinecode">0</span>:
+
+<div class="paragraph"> </div>
+
+<pre>
+# foo O;;
+- : nat = O
+</pre>
+
+<div class="paragraph"> </div>
+
+Note that the type of <span class="inlinecode"><a class="idref" href="Casts.cast1.html#foo"><span class="id" title="definition">foo</span></a></span> in the extracted code is simply <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>→<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span>.
+We can use <span class="inlinecode">&lt;?</span> to protect the function upon extraction:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="gee"><span class="id" title="definition">gee</span></a> := <a class="idref" href="Casts.cast1.html#f91b740ea2ad5a23552703da10c022a5"><span class="id" title="notation">&lt;?</span></a> <a class="idref" href="Casts.cast1.html#foo"><span class="id" title="definition">foo</span></a>.<br/>
+<span class="id" title="keyword">Extraction</span> <a class="idref" href="Casts.cast1.html#gee"><span class="id" title="definition">gee</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<pre>
+let gee =
+  cast_fun_dom (decidable_le_nat (S O)) foo
+</pre>
+
+<div class="paragraph"> </div>
+
+The extracted function <span class="inlinecode"><a class="idref" href="Casts.cast1.html#gee"><span class="id" title="definition">gee</span></a></span> still has type <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>→<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span> since that is the best we can get in Ocaml, but it now embeds a dynamic check.
+<pre>
+# gee (S O);;
+- : nat = S O
+# gee O;;
+Exception: Failure "Cast has failed".
+</pre>
+
+<div class="paragraph"> </div>
+
+<a name="lab9"></a><h1 class="section">Higher-Order Casts, Dependently</h1>
+
+
+<div class="paragraph"> </div>
+
+Let us now consider dependently-typed functions. Recall that in Coq, a dependently-typed function has a type of the form <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>,</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span>, meaning that the type of the result (<span class="inlinecode"><a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span>) can depend on the value of the argument <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span>.
+
+<div class="paragraph"> </div>
+
+<a name="lab10"></a><h2 class="section">Strengthening the range</h2>
+
+
+<div class="paragraph"> </div>
+
+Strengthening a function type so that it returns a rich dependent type is not more complex than with a simply-typed function; it just brings the possibility that the claimed property on the returned value also depends on the argument:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="cast_forall_range"><span class="id" title="definition">cast_forall_range</span></a> (<span class="id" title="var">A</span>: <span class="id" title="keyword">Type</span>) (<span class="id" title="var">B</span>: <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>) <br/>
+&nbsp;&nbsp;(<span class="id" title="var">P</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">a</span>:<a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>, <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span>) <br/>
+&nbsp;&nbsp;(<span class="id" title="var">dec</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">a</span> (<span class="id" title="var">b</span> : <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>), <span class="id" title="class">Decidable</span> (<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="Casts.cast1.html#b"><span class="id" title="variable">b</span></a>)) :<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <span class="id" title="var">a</span>: <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>, <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">∀</span> <span class="id" title="var">a</span>: <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>, <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">b</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a> <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a> <span class="id" title="var">b</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <span class="id" title="var">f</span> <span class="id" title="var">a</span> ⇒ ? (<a class="idref" href="Casts.cast1.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>).<br/>
+<span class="id" title="keyword">Notation</span> <a name="28fdfac4d09b27d025b48d87fd0e0837"><span class="id" title="notation">&quot;</span></a>??&gt;" := (<a class="idref" href="Casts.cast1.html#cast_forall_range"><span class="id" title="definition">cast_forall_range</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ We can cast a <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span> function to a dependently-typed function that guarantees that it always returns a value that is greater than or equal to its argument: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="f_inc"><span class="id" title="definition">f_inc</span></a> : <br/>
+&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">∀</span> <span class="id" title="var">n</span> : <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>, <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">m</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">(</span></a><a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Peano.html#9b077c369e19739ef880736ba34623ff"><span class="id" title="notation">≤</span></a> <span class="id" title="var">m</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">)}</span></a> := ??&gt;.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Then, as expected: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#f_inc"><span class="id" title="definition">f_inc</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#S"><span class="id" title="constructor">S</span></a> 3.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<pre>
+= (4; Le.le_n_S 2 3 ...)
+: {m : nat | 3 &lt;= m}
+</pre>
+
+<div class="paragraph"> </div>
+
+  And: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#f_inc"><span class="id" title="definition">f_inc</span></a> (<span class="id" title="keyword">fun</span> <span class="id" title="var">_</span> ⇒ <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#O"><span class="id" title="constructor">O</span></a>) 3.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<pre>
+= failed_cast 0 (3 &lt;= 0)
+: {m : nat | 3 &lt;= m}
+</pre>
+
+<div class="paragraph"> </div>
+
+ The above example casts a simply-typed function to a dependently-typed function, also illustrating the binary property <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#b"><span class="id" title="variable">b</span></a></span> in the range. In the following example, the casted function is dependently-typed. Consider the inductive type of length-indexed lists of <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span>, and the dependently-typed constructor <span class="inlinecode"><a class="idref" href="Casts.cast1.html#build_list"><span class="id" title="definition">build_list</span></a></span>: 
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Inductive</span> <a name="ilist"><span class="id" title="inductive">ilist</span></a> : <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Set</span> :=<br/>
+&nbsp;| <a name="Nil"><span class="id" title="constructor">Nil</span></a> : <a class="idref" href="Casts.cast1.html#ilist"><span class="id" title="inductive">ilist</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#O"><span class="id" title="constructor">O</span></a><br/>
+&nbsp;| <a name="Cons"><span class="id" title="constructor">Cons</span></a> : <span class="id" title="keyword">∀</span> <span class="id" title="var">n</span>, <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Casts.cast1.html#ilist"><span class="id" title="inductive">ilist</span></a> <a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Casts.cast1.html#ilist"><span class="id" title="inductive">ilist</span></a> (<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#S"><span class="id" title="constructor">S</span></a> <a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a>).<br/>
+
+<br/>
+<span class="id" title="keyword">Fixpoint</span> <a name="build_list"><span class="id" title="definition">build_list</span></a> (<span class="id" title="var">n</span>: <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>) : <a class="idref" href="Casts.cast1.html#ilist"><span class="id" title="inductive">ilist</span></a> <a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a> :=<br/>
+&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a> <span class="id" title="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#O"><span class="id" title="constructor">O</span></a> ⇒ <a class="idref" href="Casts.cast1.html#Nil"><span class="id" title="constructor">Nil</span></a><br/>
+&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#S"><span class="id" title="constructor">S</span></a> <span class="id" title="var">m</span> ⇒ <a class="idref" href="Casts.cast1.html#Cons"><span class="id" title="constructor">Cons</span></a> <span class="id" title="var">_</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#O"><span class="id" title="constructor">O</span></a> (<a class="idref" href="Casts.cast1.html#build_list"><span class="id" title="definition">build_list</span></a> <span class="id" title="var">m</span>)<br/>
+&nbsp;<span class="id" title="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can cast <span class="inlinecode"><a class="idref" href="Casts.cast1.html#build_list"><span class="id" title="definition">build_list</span></a></span> (of type <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a>:<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>,</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#ilist"><span class="id" title="inductive">ilist</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a></span>) to a function type that additionally guarantees that the produced list is not empty. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="non_empty_build"><span class="id" title="definition">non_empty_build</span></a>: <span class="id" title="keyword">∀</span> <span class="id" title="var">n</span>:<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>,  <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">_</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a> <a class="idref" href="Casts.cast1.html#ilist"><span class="id" title="inductive">ilist</span></a> <a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Peano.html#19ab5cfd7e4f60fa14f22b576013bd96"><span class="id" title="notation">&gt;</span></a> 0 <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a> := <br/>
+&nbsp;&nbsp;??&gt; <a class="idref" href="Casts.cast1.html#build_list"><span class="id" title="definition">build_list</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Then, as expected: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#non_empty_build"><span class="id" title="definition">non_empty_build</span></a> 2.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<pre>
+= (Cons 1 0 (Cons 0 0 Nil); ...)
+: {_ : ilist 2 | 2 &gt; 0}
+</pre>
+
+<div class="paragraph"> </div>
+
+  And: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#non_empty_build"><span class="id" title="definition">non_empty_build</span></a> 0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<pre>
+= failed_cast Nil (1 &lt;= 0)
+: {_ : ilist 0 | 0 &gt; 0}
+</pre>
+
+<div class="paragraph"> </div>
+
+<a name="lab11"></a><h2 class="section">Weakening the domain</h2>
+
+
+<div class="paragraph"> </div>
+
+Consider a function that expects an argument of a subset type <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span>, and whose return type depends on the value component of the dependent pair. Such a function has type <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#x"><span class="id" title="variable">x</span></a>:</span> <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>},</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#x"><span class="id" title="variable">x</span></a>.1</span>. Weakening the domain in this case means casting this function to the dependent type <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>,</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span>.
+
+<div class="paragraph"> </div>
+
+Notably, defining such a cast operator leads to an interesting insight regarding casts in a dependently-typed language. Because <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span> hides a lie about a value, when casting the argument of a dependently-typed function, the lie percolates at the type level due to the dependency. Consider the intuitive definition of <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast_forall_dom"><span class="id" title="definition">cast_forall_dom</span></a></span>, which simply applies <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a></span> to the argument:
+
+<div class="paragraph"> </div>
+
+<span class="inlinecode"><span class="id" title="keyword">Definition</span></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast_forall_dom"><span class="id" title="definition">cast_forall_dom</span></a></span> <span class="inlinecode">(<a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>:</span> <span class="inlinecode"><span class="id" title="keyword">Type</span>)</span> <span class="inlinecode">(<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a>:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="keyword">Prop</span>)</span>
+
+<div class="paragraph"> </div>
+
+<span class="inlinecode"></span> <span class="inlinecode">(<a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a>:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="keyword">Type</span>)</span> <span class="inlinecode">(<a class="idref" href="Casts.cast1.html#dec"><span class="id" title="variable">dec</span></a>:</span> <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>,</span> <span class="inlinecode"><span class="id" title="class">Decidable</span></span> <span class="inlinecode">(<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>))</span> <span class="inlinecode">:</span>
+
+<div class="paragraph"> </div>
+
+<span class="inlinecode">(<span class="id" title="keyword">∀</span></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#x"><span class="id" title="variable">x</span></a>:</span> <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>},</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#x"><span class="id" title="variable">x</span></a>.1)</span>  <span class="inlinecode">→</span> <span class="inlinecode">(<span class="id" title="keyword">∀</span></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>,</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>)</span> <span class="inlinecode">:=</span>
+
+<div class="paragraph"> </div>
+
+<span class="inlinecode"><span class="id" title="keyword">fun</span></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#f"><span class="id" title="variable">f</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">⇒</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#f"><span class="id" title="variable">f</span></a></span> <span class="inlinecode">(?</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>).</span>
+
+<div class="paragraph"> </div>
+
+
+ Coq (rightfully) complains that:
+<pre>
+The term "f (? a)" has type "B (? a).1" 
+while it is expected to have type "B a".
+</pre>
+
+<div class="paragraph"> </div>
+
+Indeed, the return type of the casted function can depend on the argument, yet we are lying about the argument by claiming that it has the subset type <span class="inlinecode">{<a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode">:</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a></span> <span class="inlinecode">|</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>}</span>. Therefore, in all honesty, the only thing we know about <span class="inlinecode"><a class="idref" href="Casts.cast1.html#f"><span class="id" title="variable">f</span></a></span> <span class="inlinecode">(?</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>)</span> is that it has type <span class="inlinecode"><a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> ---in which case <span class="inlinecode">(?</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>).1</span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span>. But the cast may fail, in which case <span class="inlinecode">?</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> is not a dependent pair and <span class="inlinecode">(?</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>).1</span> cannot be reduced: it is a cast error at the type level.
+
+<div class="paragraph"> </div>
+
+What can we do about this? We know that cast errors can occur, but we do not want to pollute all types with that uncertainty. Following the axiomatic approach to casts, we can introduce a second axiom, <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast_type"><span class="id" title="axiom">failed_cast_type</span></a></span>, to   the fact that cast errors can occur at the type level. Note that we do not want to pose the equality <span class="inlinecode">(?</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>).1</span> <span class="inlinecode">=</span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> as an axiom, otherwise we would be relying on the axiom even though the cast succeeds. The axiom is required only to pretend that the first projection of a  cast is actually the casted value:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Axiom</span> <a name="failed_cast_type"><span class="id" title="axiom">failed_cast_type</span></a> : <br/>
+&nbsp;&nbsp;<span class="id" title="keyword">∀</span> {<span class="id" title="var">A</span>:<span class="id" title="keyword">Type</span>} {<span class="id" title="var">P</span> : <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span>} {<span class="id" title="var">a</span>: <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>} (<span class="id" title="var">msg</span>:<span class="id" title="keyword">Prop</span>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Casts.cast1.html#9a4d58e74533193c909813f3be0a58f0"><span class="id" title="notation">(</span></a><a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a> (<span class="id" title="var">P</span>:=<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a>) <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="Casts.cast1.html#msg"><span class="id" title="variable">msg</span></a><a class="idref" href="Casts.cast1.html#9a4d58e74533193c909813f3be0a58f0"><span class="id" title="notation">).1</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#1c39bf18749e5cc609e83c0a0ba5a372"><span class="id" title="notation">=</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Using this axiom allows us to define an operator to hide casts from types, <span class="inlinecode"><a class="idref" href="Casts.cast1.html#hide_cast"><span class="id" title="definition">hide_cast</span></a></span> (notation <span class="inlinecode">[?]</span>), as follows: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="hide_cast"><span class="id" title="definition">hide_cast</span></a> (<span class="id" title="var">A</span>: <span class="id" title="keyword">Type</span>) (<span class="id" title="var">P</span>: <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span>) (<span class="id" title="var">B</span>: <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">dec</span>: <span class="id" title="keyword">∀</span> <span class="id" title="var">a</span>, <span class="id" title="class">Decidable</span> (<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>)) (<span class="id" title="var">a</span>:<a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>): <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="Casts.cast1.html#9a4d58e74533193c909813f3be0a58f0"><span class="id" title="notation">(?</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a><a class="idref" href="Casts.cast1.html#9a4d58e74533193c909813f3be0a58f0"><span class="id" title="notation">).1</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <a class="idref" href="Casts.cast1.html#cast"><span class="id" title="definition">cast</span></a>. <span class="id" title="tactic">case</span> (<span class="id" title="var">dec</span> <span class="id" title="var">a</span>); <span class="id" title="tactic">intro</span> <span class="id" title="var">p</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">b</span> ⇒ <a class="idref" href="Casts.cast1.html#b"><span class="id" title="variable">b</span></a>).<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">exact</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">b</span> ⇒ <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#eq_rect"><span class="id" title="definition">eq_rect</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <a class="idref" href="Casts.cast1.html#b"><span class="id" title="variable">b</span></a> <span class="id" title="var">_</span> (<a class="idref" href="Casts.cast1.html#failed_cast_type"><span class="id" title="axiom">failed_cast_type</span></a> (<span class="id" title="var">P</span> <span class="id" title="var">a</span>))).<br/>
+<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Notation</span> <a name="3a8698ac784ecf8b5e489407034adcb4"><span class="id" title="notation">&quot;</span></a>[?]" := (<a class="idref" href="Casts.cast1.html#hide_cast"><span class="id" title="definition">hide_cast</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ 
+It is necessary to exploit the equality coming from <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast_type"><span class="id" title="axiom">failed_cast_type</span></a></span>
+to transform the term <span class="inlinecode"><a class="idref" href="Casts.cast1.html#b"><span class="id" title="variable">b</span></a></span> of type <span class="inlinecode"><a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode">(<a class="idref" href="Casts.cast1.html#failed_cast"><span class="id" title="axiom">failed_cast</span></a></span> <span class="inlinecode"><span class="id" title="var">_</span></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#msg"><span class="id" title="variable">msg</span></a>).1</span> to a
+term of type <span class="inlinecode"><a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span>. This is done using the elimination rule <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#eq_rect"><span class="id" title="definition">eq_rect</span></a></span>
+of the equality type. Here again, we can see that a
+<span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast_type"><span class="id" title="axiom">failed_cast_type</span></a></span> error will only occur if the property <span class="inlinecode"><a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a></span> <span class="inlinecode"><a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a></span> does
+not hold. 
+<div class="paragraph"> </div>
+
+ We can now define <span class="inlinecode"><a class="idref" href="Casts.cast1.html#cast_forall_dom"><span class="id" title="definition">cast_forall_dom</span></a></span> as expected, by adding the hiding of the cast in the return type: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="cast_forall_dom"><span class="id" title="definition">cast_forall_dom</span></a> (<span class="id" title="var">A</span>: <span class="id" title="keyword">Type</span>) (<span class="id" title="var">P</span>: <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span>) <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">B</span>: <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Type</span>) (<span class="id" title="var">dec</span>: <span class="id" title="keyword">∀</span> <span class="id" title="var">a</span>, <span class="id" title="class">Decidable</span> (<a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>)) :<br/>
+&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <span class="id" title="var">x</span>: <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">a</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a> <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <a class="idref" href="Casts.cast1.html#P"><span class="id" title="variable">P</span></a> <span class="id" title="var">a</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a>, <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="Casts.cast1.html#x"><span class="id" title="variable">x</span></a><a class="idref" href="Casts.cast1.html#9a4d58e74533193c909813f3be0a58f0"><span class="id" title="notation">.1</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a>  <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">→</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <span class="id" title="var">a</span> : <a class="idref" href="Casts.cast1.html#A"><span class="id" title="variable">A</span></a>, <a class="idref" href="Casts.cast1.html#B"><span class="id" title="variable">B</span></a> <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Logic.html#d43e996736952df71ebeeae74d10a287"><span class="id" title="notation">)</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">fun</span> <span class="id" title="var">f</span> <span class="id" title="var">a</span> ⇒ <a class="idref" href="Casts.cast1.html#3a8698ac784ecf8b5e489407034adcb4"><span class="id" title="notation">[?]</span></a> (<a class="idref" href="Casts.cast1.html#f"><span class="id" title="variable">f</span></a> (? <a class="idref" href="Casts.cast1.html#a"><span class="id" title="variable">a</span></a>)).<br/>
+<span class="id" title="keyword">Notation</span> <a name="c37a8c899f19034b4e6eae8de61e533a"><span class="id" title="notation">&quot;</span></a>&lt;??" := (<a class="idref" href="Casts.cast1.html#cast_forall_dom"><span class="id" title="definition">cast_forall_dom</span></a> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span> <span class="id" title="var">_</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Recall the length-indexed lists of Sect.. Consider the following dependently-typed function with a rich domain type, which specifies that given a strictly positive <span class="inlinecode"><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a></span>, it returns an <span class="inlinecode"><a class="idref" href="Casts.cast1.html#ilist"><span class="id" title="inductive">ilist</span></a></span> of that length:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="build_pos"><span class="id" title="definition">build_pos</span></a> : <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Unicode.Utf8_core.html#669c7d28e8f98524b0cbba08d17d0eec"><span class="id" title="notation">∀</span></a> <span class="id" title="var">x</span>: <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">{</span></a><span class="id" title="var">n</span><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">:</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">|</span></a> <span class="id" title="var">n</span> <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Peano.html#19ab5cfd7e4f60fa14f22b576013bd96"><span class="id" title="notation">&gt;</span></a> 0 <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Specif.html#72ca3fac4636a1b19c963b12162882cf"><span class="id" title="notation">}</span></a><a class="idref" href="http://coq.inria.fr/stdlib/Coq.Unicode.Utf8_core.html#669c7d28e8f98524b0cbba08d17d0eec"><span class="id" title="notation">,</span></a> <a class="idref" href="Casts.cast1.html#ilist"><span class="id" title="inductive">ilist</span></a> (<a class="idref" href="Casts.cast1.html#x"><span class="id" title="variable">x</span></a><a class="idref" href="Casts.cast1.html#9a4d58e74533193c909813f3be0a58f0"><span class="id" title="notation">.1</span></a>) :=<br/>
+&nbsp;<span class="id" title="keyword">fun</span> <span class="id" title="var">n</span> ⇒ <a class="idref" href="Casts.cast1.html#build_list"><span class="id" title="definition">build_list</span></a> (<a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a><a class="idref" href="Casts.cast1.html#9a4d58e74533193c909813f3be0a58f0"><span class="id" title="notation">.1</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can use <span class="inlinecode">&lt;??</span> to safely hide the requirement that <span class="inlinecode"><a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a></span> <span class="inlinecode">&gt;</span> <span class="inlinecode">0</span>: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="build_pos&acute;"><span class="id" title="definition">build_pos&acute;</span></a> : <span class="id" title="keyword">∀</span> <span class="id" title="var">n</span>: <a class="idref" href="http://coq.inria.fr/stdlib/Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>, <a class="idref" href="Casts.cast1.html#ilist"><span class="id" title="inductive">ilist</span></a> <a class="idref" href="Casts.cast1.html#n"><span class="id" title="variable">n</span></a> := <a class="idref" href="Casts.cast1.html#c37a8c899f19034b4e6eae8de61e533a"><span class="id" title="notation">&lt;??</span></a> <a class="idref" href="Casts.cast1.html#build_pos"><span class="id" title="definition">build_pos</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Then, as expected: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#build_pos&acute;"><span class="id" title="definition">build_pos&acute;</span></a> 2.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<pre>
+= Cons 1 0 (Cons 0 0 Nil)
+: ilist 2
+</pre>
+
+<div class="paragraph"> </div>
+
+  And we can now see <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast_type"><span class="id" title="axiom">failed_cast_type</span></a></span> appearing: 
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" title="keyword">Eval</span> <span class="id" title="tactic">compute</span> <span class="id" title="keyword">in</span> <a class="idref" href="Casts.cast1.html#build_pos&acute;"><span class="id" title="definition">build_pos&acute;</span></a> 0.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<div class="paragraph"> </div>
+
+<pre>
+= eq_rect ... 
+     ((fix build_list (n : nat) : ilist n := ...)
+      (let (a, _) := failed_cast 0 (1 &lt;= 0) in a)) 
+     0 (failed_cast_type (1 &lt;= 0))
+: ilist 0
+</pre>
+
+<div class="paragraph"> </div>
+
+ Note that <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast_type"><span class="id" title="axiom">failed_cast_type</span></a></span> is used to convert two types that are equal after extraction (because they only differ by a <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>) so <span class="inlinecode"><a class="idref" href="Casts.cast1.html#failed_cast_type"><span class="id" title="axiom">failed_cast_type</span></a></span> is not extracted. We come back to this point in Sect..
+</div>
+
 </html>
