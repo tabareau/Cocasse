@@ -45,23 +45,17 @@ Second, because it may be the case that <span class="inlinecode"><span class="id
 
 
 
-<div class="paragraph"> </div>
-
 The <span class="inlinecode"><span class="id" title="class">Decidable</span></span> type class, which is used in the Coq/HoTT
 library, is a way to
 characterize properties that are decidable. To establish that a
 property is decidable, one must provide an explicit proof that it 
 either holds or not: 
 
-<div class="paragraph"> </div>
-
 <span class="inlinecode"><span class="id" title="keyword">Class</span></span> <span class="inlinecode"><span class="id" title="class">Decidable</span></span> <span class="inlinecode">(<span class="id" title="variable">P</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="keyword">Prop</span>)</span> <span class="inlinecode">:=</span> <span class="inlinecode">{</span> <span class="inlinecode"><span class="id" title="variable">dec</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="variable">P</span></span> <span class="inlinecode">+</span> <span class="inlinecode">¬</span> <span class="inlinecode"><span class="id" title="variable">P</span></span> <span class="inlinecode">}.</span>
 <br/>
 
 
  Note that the disjunction is encoded using a sum type (<span class="inlinecode">+</span>, which is in <span class="inlinecode"><span class="id" title="keyword">Type</span></span>) instead of a propositional disjunction (<span class="inlinecode">∨</span>, which is in <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>) in order to support extracting the underlying proof term and use it computationally as a decision procedure for the property.
-
-</div>
 
 <br/>
 
