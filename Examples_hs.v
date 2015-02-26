@@ -1,5 +1,4 @@
-Require Import Cast Decidable Showable List ExtrOcamlString.
-
+Require Import Cast Decidable Showable List.
 
 Local Open Scope string_scope.
 
@@ -24,13 +23,6 @@ Eval compute in g (? 0).
 
 
 Definition client (x: nat) := g (? x).
-
-Extraction Language Ocaml.
-Extract Constant failed_cast => "(let f _ s = failwith (String.concat """" ([""Cast has failed because of ""]@ (List.map (String.make 1) s))) in f)".
-Extraction Inline failed_cast.
-
-Extraction "test.ml" client.
-
 
 Extraction Language Haskell.
 Extract Constant failed_cast =>
