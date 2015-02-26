@@ -1,0 +1,6 @@
+"coqdep" -c -R "." Casts "records.v" > "records.v.d" || ( RV=$?; rm -f "records.v.d"; exit ${RV} )
+"coqc"  -q  -R "." Casts   records
+     = 5
+     : nat
+     = let (_, top, bottom, _, _) := failed_cast_Rat true 5 10 in top
+     : nat
