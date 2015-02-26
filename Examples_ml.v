@@ -1,3 +1,5 @@
+Require Export Unicode.Utf8_core.
+Add LoadPath "." as Casts.
 Require Import Cast Decidable Showable List ExtrOcamlString.
 
 
