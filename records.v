@@ -1,3 +1,9 @@
+(******************************************************)
+(*                    Cocasse                         *)
+(* A library for Gradual Certified Programming in Coq *)
+(* Authors: Nicolas Tabareau and Eric Tanter          *)
+(******************************************************)
+
 Require Export Unicode.Utf8_core.
 Add LoadPath "." as Casts.
 Require Import Cast Decidable Showable.
@@ -5,13 +11,26 @@ Require Import Nat Arith.
 Require Import Eqdep_dec.
 Require Import Arith.
 
+(* Cast for the record for rational numbers *)
+
+(* The type of bounded integers *)
+
 Definition bnat (n:nat) := {m : nat | m <= n}.
 
 Definition bnat_to_nat n : bnat n -> nat := fun x => x.1.
 
 Coercion bnat_to_nat : bnat >-> nat.
 
-Instance show_bnat k : Showable (bnat k) := {| show := fun n => show n.1|}.
+Instance show_bnat k : Show (bnat k) := {| show := fun n => show n.1|}.
+
+Definition bnat_S n : bnat n -> bnat (S n) :=
+  fun m => (m.1; le_S _ _ m.2).
+
+
+(* Record type for rational numbers, as in the Coq documentation, section 2.1 *)
+
+(* The only difference is that we use a bounded quantification to keep *)
+(* the property Rat_irred_cond decidable *)
 
 Record Rat : Set := mkRat
    {sign : bool;
@@ -21,9 +40,7 @@ Record Rat : Set := mkRat
     Rat_irred_cond : forall x y z: bnat (max top bottom),
         x * y = top /\ x * z = bottom -> 1 = x}.
 
-Definition bnat_S n : bnat n -> bnat (S n) :=
-  fun m => (m.1; le_S _ _ m.2).
-
+(* n <= m  is an hProp *) 
 (* Adapted from https://coq.inria.fr/files/interval_discr.v *)
 
 Theorem eq_rect_eq_nat :
@@ -69,12 +86,14 @@ destruct k.
   + right. intro H0. apply H. intro n. exact (H0 (bnat_S _ n)).
 Defined.
 
+(* Instance of Decidable for bounded quantification *)
+
 Instance Decidable_forall_bounded k
   (P:bnat k->Prop) (HP : forall n, Decidable (P n)) :
   Decidable (forall n, P n).
 exact (_Decidable_forall_bounded _ _ _). Defined.
 
-
+(* Cast for Rat *)
 
 Axiom failed_cast_Rat : forall (s:bool) (t b: nat), Rat.
 
@@ -84,7 +103,13 @@ Definition cast_Rat (s:bool) (t b: nat) : Rat :=
     | _ , _ => failed_cast_Rat s t b
   end.
 
-Axiom failed_cast_top : forall s t b, top (failed_cast_Rat s t b) = t.
+(* Axioms for higher order cast of Rat *)
+
+Axiom failed_cast_sign   : forall s t b, sign (failed_cast_Rat s t b) = s.
+Axiom failed_cast_top    : forall s t b, top (failed_cast_Rat s t b) = t.
+Axiom failed_cast_bottom : forall s t b, bottom (failed_cast_Rat s t b) = b.
+
+(* Playing with some examples *)
 
 Definition Rat_good := cast_Rat true 5 6.
 

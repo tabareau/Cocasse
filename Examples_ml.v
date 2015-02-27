@@ -1,9 +1,16 @@
+(******************************************************)
+(*                    Cocasse                         *)
+(* A library for Gradual Certified Programming in Coq *)
+(* Authors: Nicolas Tabareau and Eric Tanter          *)
+(******************************************************)
+
 Require Export Unicode.Utf8_core.
 Add LoadPath "." as Casts.
 Require Import Cast Decidable Showable List ExtrOcamlString.
 
-
 Local Open Scope string_scope.
+
+(* simple examples, with extraction to Ocaml code *)
 
 Definition x_not_ok := 1.
            
@@ -35,7 +42,7 @@ Extraction "test.ml" client.
 
 (** ** A more involved example: casting lists *)
 
-Definition cast_list (A: Type) `{Showable A} (P : A -> Prop) 
+Definition cast_list (A: Type) `{Show A} (P : A -> Prop) 
   (dec : forall a, Decidable (P a)): 
     list A -> list {a : A | P a} := map ?.
 
@@ -81,7 +88,7 @@ Fixpoint build_list (n: nat) : ilist n :=
    | S m => Cons _ O (build_list m)
  end.
 
-Instance show_ilist n  : Showable (ilist n) := {| show := fun _ => not_implemented|}.
+Instance show_ilist n  : Show (ilist n) := {| show := fun _ => not_implemented|}.
 
 Definition non_empty_build: forall n:nat,  {_: ilist n | n > 0 } := 
   ??> build_list.
