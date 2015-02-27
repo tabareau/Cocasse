@@ -110,12 +110,6 @@ Definition cast_Rat (s:bool) (t b: nat) : Rat :=
     | _ , _ => failed_cast_Rat s t b
   end.
 
-(* Axioms for dependent domain-weakening casts of Rat *)
-
-Axiom failed_cast_sign   : forall s t b, sign (failed_cast_Rat s t b) = s.
-Axiom failed_cast_top    : forall s t b, top (failed_cast_Rat s t b) = t.
-Axiom failed_cast_bottom : forall s t b, bottom (failed_cast_Rat s t b) = b.
-
 (* Playing with some examples *)
 
 Definition Rat_good := cast_Rat true 5 6.
@@ -125,3 +119,22 @@ Eval compute in top Rat_good.
 Definition Rat_bad := cast_Rat true 5 10.
 
 Eval compute in top Rat_bad.
+
+(* Axioms for dependent domain-weakening casts of Rat *)
+
+Axiom failed_cast_sign   : forall s t b, sign (failed_cast_Rat s t b) = s.
+Axiom failed_cast_top    : forall s t b, top (failed_cast_Rat s t b) = t.
+Axiom failed_cast_bottom : forall s t b, bottom (failed_cast_Rat s t b) = b.
+
+Definition hide_cast_Rat (B: bool -> nat -> nat -> Type) s t b :
+  B (sign (cast_Rat s t b)) (top (cast_Rat s t b)) (bottom (cast_Rat s t b)) -> B s t b.
+Proof.
+  unfold cast_Rat. case (dec (0 ≠ b));
+    case (dec (∀ x y z : bnat (max t b), x * y = t ∧ x * z = b → 1 = x)); intros Hb Hi;
+  try rewrite (failed_cast_sign s t b), (failed_cast_top s t b), (failed_cast_bottom s t b); exact id.
+Defined.
+
+Definition cast_forall_dom_Rat (B: bool -> nat -> nat -> Type) :
+   (forall x: Rat, B (sign x) (top x) (bottom x))  -> (forall s t b, B s t b) :=
+  fun f s t b => hide_cast_Rat _ _ _ _(f (cast_Rat s t b)).
+
