@@ -1,10 +1,12 @@
 (******************************************************)
 (*                    Cocasse                         *)
 (* A library for Gradual Certified Programming in Coq *)
-(* Authors: Nicolas Tabareau and Eric Tanter          *)
+(* Authors: Nicolas Tabareau and Éric Tanter          *)
 (******************************************************)
 
+Require Export Unicode.Utf8_core.
 Require Import Bool List Le.
+
 
 (* The Decidable Class, as defined in https://github.com/HoTT/HoTT *)
 (* We are defining it here to be independent of the Coq/HoTT library *)
@@ -17,6 +19,8 @@ Class Decidable (A : Prop) := dec : A + (~ A).
 Arguments dec A {_}.
 
 Set Implicit Arguments.
+
+(* Reflecting a boolean as a decidable property *)
 
 Instance Decidable_bool (t : bool) : Decidable (Is_true t) :=
   match t with
@@ -32,6 +36,8 @@ Class Decidable_relate (P : Prop) := {
   Decidable_witness : bool;
   Decidable_spec : Decidable_witness = true <-> P
 }.
+
+(* Decidable_relate and Decidable are equivalent *)
 
 Instance Dec_relate_Decidable P (HP: Decidable_relate P) : 
   Decidable P.
@@ -53,6 +59,8 @@ Defined.
 Class EqDecidable (A : Type) := { 
   eq_dec : forall a b : A, Decidable (a = b) 
 }.
+
+(* Instances for bool and nat *)
 
 Instance Decidable_eq_bool : forall (x y : bool), Decidable (eq x y).
 intros. destruct x, y; try (left ;reflexivity); 
@@ -101,10 +109,12 @@ Instance EqDecidable_list :
     { eq_dec := Decidable_eq_list HA }.
 
 
+(* Instance for less than *)
+
 Instance Decidable_le_nat : forall (x y : nat), Decidable (x <= y).
 induction x.
 - destruct y.
- + left ;reflexivity.
+ + left; reflexivity.
  + left. apply le_S, le_0_n. 
 - induction y.
   + right. apply le_Sn_0.

@@ -5,15 +5,14 @@
 (******************************************************)
 
 Require Export Unicode.Utf8_core.
-Add LoadPath "." as Casts.
 Require Import Cast Decidable Showable.
 Require Import Nat Arith.
 Require Import Eqdep_dec.
 Require Import Arith.
 
-(* Cast for the record for rational numbers *)
+(* Cast for the record type of rational numbers *)
 
-(* The type of bounded integers *)
+(* The type of bounded nats, and its implicit coercion to nat *)
 
 Definition bnat (n:nat) := {m : nat | m <= n}.
 
@@ -21,16 +20,22 @@ Definition bnat_to_nat n : bnat n -> nat := fun x => x.1.
 
 Coercion bnat_to_nat : bnat >-> nat.
 
+(* Show instance for bounded nats *)
+
 Instance show_bnat k : Show (bnat k) := {| show := fun n => show n.1|}.
+
+(* The successor of a bnat is a bnat *)
 
 Definition bnat_S n : bnat n -> bnat (S n) :=
   fun m => (m.1; le_S _ _ m.2).
 
 
-(* Record type for rational numbers, as in the Coq documentation, section 2.1 *)
+(* Record type for rational numbers, 
+   as in the Coq documentation, section 2.1 
 
-(* The only difference is that we use a bounded quantification to keep *)
-(* the property Rat_irred_cond decidable *)
+   The only difference is that we use a bounded quantification (with bnat) to keep 
+   the property Rat_irred_cond decidable 
+*)
 
 Record Rat : Set := mkRat
    {sign : bool;
@@ -68,6 +73,8 @@ induction p using le_ind'; intro q.
     rewrite (IHp l0); reflexivity.
 Qed.
 
+(* Instance of Decidable for bounded quantification *)
+
 Fixpoint _Decidable_forall_bounded k (P: bnat k-> Prop)
          (HP : forall n, Decidable (P n)) {struct k}:
   Decidable (forall n : bnat k, P n).
@@ -86,8 +93,6 @@ destruct k.
   + right. intro H0. apply H. intro n. exact (H0 (bnat_S _ n)).
 Defined.
 
-(* Instance of Decidable for bounded quantification *)
-
 Instance Decidable_forall_bounded k
   (P:bnat k->Prop) (HP : forall n, Decidable (P n)) :
   Decidable (forall n, P n).
@@ -103,7 +108,7 @@ Definition cast_Rat (s:bool) (t b: nat) : Rat :=
     | _ , _ => failed_cast_Rat s t b
   end.
 
-(* Axioms for higher order cast of Rat *)
+(* Axioms for dependent domain-weakening casts of Rat *)
 
 Axiom failed_cast_sign   : forall s t b, sign (failed_cast_Rat s t b) = s.
 Axiom failed_cast_top    : forall s t b, top (failed_cast_Rat s t b) = t.
@@ -118,4 +123,3 @@ Eval compute in top Rat_good.
 Definition Rat_bad := cast_Rat true 5 10.
 
 Eval compute in top Rat_bad.
-
