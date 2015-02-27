@@ -4,6 +4,8 @@
 (* Authors: Nicolas Tabareau and Eric Tanter          *)
 (******************************************************)
 
+Add LoadPath "." as Casts.
+
 Require Export Unicode.Utf8_core.
 Require Import Cast Decidable Showable List ExtrOcamlString.
 
@@ -24,7 +26,6 @@ Definition x_bad : {n:nat | n < 10} := ? 15.
 Eval compute in x_bad.
 
 Eval compute in x_bad.1.
-
 
 Definition g (x: {n:nat | n > 0}) := 1.
 
@@ -107,8 +108,6 @@ Fixpoint build_list (n: nat) : ilist n :=
    | O => Nil
    | S m => Cons _ O (build_list m)
  end.
-
-Instance show_ilist n  : Show (ilist n) := {| show := fun _ => not_implemented|}.
 
 (* casting build_list to pretend it always returns non empty lists *)
 

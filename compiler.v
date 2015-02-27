@@ -4,6 +4,8 @@
 (* Authors: Nicolas Tabareau and Éric Tanter          *)
 (******************************************************)
 
+Add LoadPath "." as Casts.
+
 Require Export Unicode.Utf8_core.
 Require Import Cast Decidable Showable String.
 
@@ -44,10 +46,6 @@ Fixpoint evalExp (e: exp) : nat :=
 
 Eval simpl in evalExp (Const 42).
 Eval simpl in evalExp (Binop Times (Binop Plus (Const 2) (Const 2)) (Const 7)).
-
-(* showing expressions [TBD] *)
-
-Instance show_exp : Show exp := {| show := fun _ => not_implemented|}.
 
 (* A simple cast on expressions *)
 
@@ -106,10 +104,6 @@ Fixpoint compile (e: exp) : prog :=
 
 Definition correct_prog (e: exp) (p: prog) : Prop := 
   runProg p nil = Some (evalExp e :: nil).
-
-(* showing programs [TBD] *)
-
-Instance show_prog : Show prog := {| show := fun _ => not_implemented|}.
 
 (* Casting the compiler to a correct compiler *)
 
