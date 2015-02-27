@@ -17,4 +17,4 @@
 *.md#
 *.ml*
 *.hs
-Makefile_coq
+*.v#
