@@ -24,7 +24,9 @@ Instance Decidable_bool (t : bool) : Decidable (Is_true t) :=
     | false => inr id
   end.
 
-(* Connexion to a boolean version of decidable as in *)
+(* Connexion to a boolean version of decidable as in 
+   native-coq/theories/Classes/DecidableClass.v 
+*)
 
 Class Decidable_relate (P : Prop) := {
   Decidable_witness : bool;
