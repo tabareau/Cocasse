@@ -1,4 +1,3 @@
-COQDOCOPTS=--utf8 -g --interpolate --body-only -R . Casts -coqlib http://coq.inria.fr/stdlib/ 
 COQOPTS=
 COQBIN=
 
