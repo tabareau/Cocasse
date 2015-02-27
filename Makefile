@@ -1,7 +1,7 @@
 COQOPTS=
 COQBIN=
 
-all: coqcompile ${TARGETS} 
+all: coqcompile
 
 coqcompile:
 	coq_makefile -R . Casts *.v -o Makefile_coq
@@ -12,4 +12,3 @@ coqcompile:
 
 clean: 
 	$(MAKE) -f Makefile_coq clean
-	rm -f ${TARGETS}
