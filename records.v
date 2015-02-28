@@ -136,7 +136,7 @@ Defined.
 
 Definition cast_forall_dom_Rat (B: bool -> nat -> nat -> Type) :
    (forall x: Rat, B (sign x) (top x) (bottom x))  -> (forall s t b, B s t b) :=
-  fun f s t b => hide_cast_Rat _ _ _ _(f (cast_Rat s t b)).
+  fun f s t b => hide_cast_Rat _ _ _ _ (f (cast_Rat s t b)).
 
 
 (* small example, using ilists *)
@@ -153,10 +153,13 @@ Fixpoint build_list (n: nat) : ilist n :=
  end.
 
 (* now the example *)
-Definition listr (s : bool) (t b: nat) : Set := ilist t.
+Definition listr (s : bool) (t b: nat) : Set := if s then ilist t else ilist b.
 
-Program Definition f : forall x:Rat, listr (sign x) (top x) (bottom x) := 
-  fun x => build_list (top x).
+Program Definition f : forall x:Rat, listr (sign x) (top x) (bottom x) :=
+  fun x => match sign x with
+    | true => build_list (top x)
+    | false => build_list (bottom x)
+  end. 
 
 Definition g := cast_forall_dom_Rat _ f.
 
