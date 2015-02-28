@@ -138,3 +138,27 @@ Definition cast_forall_dom_Rat (B: bool -> nat -> nat -> Type) :
    (forall x: Rat, B (sign x) (top x) (bottom x))  -> (forall s t b, B s t b) :=
   fun f s t b => hide_cast_Rat _ _ _ _(f (cast_Rat s t b)).
 
+
+(* small example, using ilists *)
+
+(* recall defs *)
+Inductive ilist : nat -> Set :=
+ | Nil : ilist O
+ | Cons : forall n, nat -> ilist n -> ilist (S n).
+
+Fixpoint build_list (n: nat) : ilist n :=
+ match n with
+   | O => Nil
+   | S m => Cons _ O (build_list m)
+ end.
+
+(* now the example *)
+Definition listr (s : bool) (t b: nat) : Set := ilist t.
+
+Program Definition f : forall x:Rat, listr (sign x) (top x) (bottom x) := 
+  fun x => build_list (top x).
+
+Definition g := cast_forall_dom_Rat _ f.
+
+Eval compute in g true 5 6.
+Eval compute in g true 5 10.
