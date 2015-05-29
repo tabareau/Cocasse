@@ -7,7 +7,7 @@
 (* Add LoadPath "." as Casts. *)
 
 Require Export Unicode.Utf8_core.
-Require Import Cast Decidable Showable String.
+Require Import Cast Showable String.
 
 Require Import Bool List Nat Arith.
 
