@@ -107,7 +107,7 @@ Notation "<??" := (cast_forall_dom _ _ _ _).
 Definition explicit_proof_example : {a : nat | forall n, n > 0 -> n > a} :=
   ? 0 (proof_term := o_proven (fun n H => H)). 
 
-(* Casting with an equivalent decision procedure *)
+(* Deciding with an equivalent decision procedure *)
 
 Definition Decidable_equivalent {P P' : Prop}
      (HPP' : P' <-> P) `{Decidable P'} : Decidable P :=

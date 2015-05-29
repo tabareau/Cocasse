@@ -20,3 +20,4 @@
 *.v#
 
 Makefile_coq
+unsafe_extraction.v
