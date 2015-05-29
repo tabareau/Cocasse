@@ -4,7 +4,7 @@
 (* Authors: Nicolas Tabareau and Eric Tanter          *)
 (******************************************************)
 
-Add LoadPath "." as Casts.
+(* Add LoadPath "." as Casts. *)
 
 Require Export Unicode.Utf8_core.
 Require Import Cast Decidable Showable List Ascii String.

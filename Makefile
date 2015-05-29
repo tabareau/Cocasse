@@ -1,7 +1,7 @@
 all: coqcompile
 
 coqcompile:
-	coq_makefile -R . Casts *.v -o Makefile_coq
+	coq_makefile -R . "" *.v -o Makefile_coq
 	$(MAKE) -f Makefile_coq > /dev/null
 
 clean: 

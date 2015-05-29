@@ -4,10 +4,10 @@
 (* Authors: Nicolas Tabareau and Eric Tanter          *)
 (******************************************************)
 
-Add LoadPath "." as Casts.
+(* Add LoadPath "." as Casts. *)
 
 Require Export Unicode.Utf8_core.
-Require Import Cast Decidable Showable List ExtrOcamlString.
+Require Import Cast DecidableExtns Showable List ExtrOcamlString.
 
 Local Open Scope string_scope.
 
@@ -56,7 +56,7 @@ Eval compute in ((wrap 10) .1).
 
 Definition cast_list (A: Type) `{Show A} (P : A -> Prop) 
   (dec : forall a, Decidable (P a)): 
-    list A -> list {a : A | P a} := map ?.
+    list A -> list {a : A | P a} := map (fun a => ? a).
 
 Notation "?::" := (cast_list _ _ _).
 
