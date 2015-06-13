@@ -25,7 +25,7 @@ Definition cast_Rat (s:bool) (t b: nat)
            {dec_rat_bottom : Decidable _}
            {dec_rat_irred  : (0 <> b) -> Decidable _} : Rat :=
   match dec _ (*Rat_bottom_cond*) with
-    | inl Hb => match @dec _ (dec_rat_irred Hb) (*Rat_irred_cond*) with 
+    | inl Hb => match dec (Decidable:=dec_rat_irred Hb) _ (*Rat_irred_cond*) with 
                     inl Hi => mkRat s t b Hb Hi
                   | _ => failed_cast_Rat s t b
                 end
@@ -105,7 +105,7 @@ Defined.
 
 (* Bounded quantification is equivalent to unrestricted quantification *)
 
-Definition Rat_irred_cond_bounded top bottom (H : 0 <> bottom):
+Definition Rat_irred_cond_bounded top bottom `(0 <> bottom):
   (forall x y z: bnat (max top bottom),
     y * x = top /\ z * x = bottom -> 1 = x)
   <->
@@ -128,7 +128,7 @@ Definition Rat_irred_cond_bounded top bottom (H : 0 <> bottom):
 Defined. 
 
 
-Instance Rat_irred_cond_dec_bounded top bottom (H : 0 <> bottom)  : Decidable _ :=
+Instance Rat_irred_cond_dec_bounded top bottom `(0 <> bottom)  : Decidable _ :=
 Decidable_equivalent (Rat_irred_cond_bounded top bottom H).
 
 
@@ -161,7 +161,7 @@ Definition Zmult_mult {a b n} : a * b = n <-> (a*b)%Z = n.
   - rewrite <- Nat2Z.inj_mul in e. exact (Nat2Z.inj _ _ e). 
 Defined.
 
-Definition Rat_irred_cond_Z top bottom (H : 0 <> bottom) :
+Definition Rat_irred_cond_Z top bottom `(0 <> bottom) :
   (forall x y z: bnat (max top bottom),
     Z.mul y x = top /\ Z.mul z x = bottom -> 1 = x) <->
   (forall x y z: nat,
@@ -174,7 +174,7 @@ Definition Rat_irred_cond_Z top bottom (H : 0 <> bottom) :
                    e x y z (conj (proj2 Zmult_mult H) (proj2 Zmult_mult H0))). 
 Defined. 
 
-Instance Rat_irred_cond_dec top bottom (H : 0 <> bottom) : Decidable _ :=
+Instance Rat_irred_cond_dec top bottom `(0 <> bottom) : Decidable _ :=
   Decidable_equivalent (Rat_irred_cond_Z top bottom H).
 
 (* the same example is much faster *)
@@ -212,10 +212,10 @@ Definition Zmult_pos (a b:nat) (c:Z) : a > 0 -> Z_of_nat a = (c * b)%Z -> (0 <= 
 Defined.
 
 
-Definition Rat_irred_cond_gcd (top bottom: nat) (Hbot : 0 <> bottom) :
-  (Z.gcd top bottom = 1) <->
+Definition Rat_irred_cond_gcd top bottom `(0 <> bottom) :
+  (Z.gcd (top:nat) bottom = 1) <->
   (forall x y z, y * x = top /\ z * x = bottom -> 1 = x).
-  split. 
+  split; rename H into Hbot.  
   - intros e x y z (H,H0).
     assert (x | top)%Z. exists y. symmetry. exact (proj1 Zmult_mult H).
     assert (x | bottom)%Z. exists z. symmetry. exact (proj1 Zmult_mult H0).
@@ -242,7 +242,7 @@ Definition Rat_irred_cond_gcd (top bottom: nat) (Hbot : 0 <> bottom) :
       apply (proj2 (Nat2Z.inj_iff _ _) e).
 Defined.
 
-Instance Rat_irred_cond_gcd_dec top bottom (H : 0 <> bottom) : Decidable _ :=
+Instance Rat_irred_cond_gcd_dec top bottom `(0 <> bottom) : Decidable _ :=
   Decidable_equivalent (Rat_irred_cond_gcd top bottom H).
 
 (* Now, computing cast for big rationals is instantaneous. *)
